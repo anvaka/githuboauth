@@ -1,0 +1,19 @@
+{
+  "name": "githuboauth",
+  "version": "0.0.0",
+  "description": "github oauth directive",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "oauth",
+    "github"
+  ],
+  "author": "Andrei Kashcha",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anvaka/githuboauth"
+  }
+}
