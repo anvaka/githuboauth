@@ -21876,21 +21876,39 @@ var styleDirective = valueFn({
 
 !window.angular.$$csp() && window.angular.element(document).find('head').prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}ng\\:form{display:block;}.ng-animate-block-transitions{transition:0s all!important;-webkit-transition:0s all!important;}.ng-hide-add-active,.ng-hide-remove{display:block!important;}</style>');
 },{}],7:[function(require,module,exports){
-module.exports = require('an').directive( githuboauth, 'githuboauth');
+module.exports = require('an').directive(githuboauth, 'githuboauth');
 var Cookies = require('cookies-js');
 
-function githuboauth() {
+function githuboauth($http) {
+  var rateLimitUnknown = {
+    limit: '?',
+    remaining: '?',
+    reset: '?'
+  };
+
   return {
     restrict: 'ACE',
     replace: true,
     scope: {},
-    template: "<div>\n  <div class=\"rate-limit ng-cloak\">\n    <a data-ng-Show=\"isAuthenticated\" data-ng-href=\"https://github.com/{{user.login}}\" class=\"name\">\n      <img height=\"20\" data-ng-src=\"{{user.avatar_url}}\" width=\"20\"></img> {{user.login}}\n    </a>\n    <strong data-ng-hide=\"isAuthenticated\"><a ng-href=\"https://github.com/login/oauth/authorize?client_id={{clientId}}\">Sign in</a></strong>\n  </div>\n  <div class=\"rate-limit-info\">\n    <span data-ng-Hide=\"isAuthenticated\">\n      <i class=\"icon-exclamation-sign sign-in-info text-error\" title=\"You are not signed in to GitHub. GitHub reduces amount of available requests.\"></i>\n    </span>\n    <span>GitHub API rate limit: {{requestsRemained}}</span>\n  </div>\n</div>\n",
-    link: function ($scope, element, attr) {
-       $scope.isAuthenticated = Cookies.get('accessToken');
-       $scope.clientId = attr.clientId;
-    }
+    template: "<div>\n  <div class=\"rate-limit ng-cloak\">\n    <a data-ng-Show=\"isAuthenticated\" data-ng-href=\"https://github.com/{{user.login}}\" class=\"name\">\n      <img height=\"20\" data-ng-src=\"{{user.avatar_url}}\" width=\"20\"></img> {{user.login}}\n    </a>\n    <strong data-ng-hide=\"isAuthenticated\"><a ng-href=\"https://github.com/login/oauth/authorize?client_id={{clientId}}\">Sign in</a></strong>\n  </div>\n  <div class=\"rate-limit-info\">\n    <span data-ng-Hide=\"isAuthenticated\">\n      <i class=\"icon-exclamation-sign sign-in-info text-error\" title=\"You are not signed in to GitHub. GitHub reduces amount of available requests.\"></i>\n    </span>\n    <span>GitHub API rate limit: {{rate.limit}}/{{rate.remaining}}</span>\n  </div>\n</div>\n",
+    link: link
   };
+
+  function link($scope, element, attr) {
+    $scope.isAuthenticated = Cookies.get('accessToken');
+    $scope.clientId = attr.clientid;
+    $scope.rate = rateLimitUnknown;
+    if (!$scope.isAuthenticated) {
+      $http.get('https://api.github.com/rate_limit')
+        .success(function(response, code) {
+          if (code !== 200) return;
+          $scope.rate = response.rate;
+        });
+    }
+  }
 }
+
+githuboauth.$inject = ['$http'];
 
 },{"an":8,"cookies-js":11}],8:[function(require,module,exports){
 module.exports=require(2)
