@@ -18,7 +18,7 @@ function githuboauth($http) {
 
   function link($scope, element, attr) {
     $scope.isAuthenticated = Cookies.get('accessToken');
-    $scope.clientId = attr.clientId;
+    $scope.clientId = attr.clientid;
     $scope.rate = rateLimitUnknown;
     if (!$scope.isAuthenticated) {
       $http.get('https://api.github.com/rate_limit')
