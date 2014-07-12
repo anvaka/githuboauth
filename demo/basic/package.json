@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "browserify": "^4.2.0"
+  },
+  "scripts": {
+    "start": "browserify index.js > bundle.js"
+  },
+  "dependencies": {
+    "an": "0.0.6",
+    "angular": "^1.2.19"
+  }
+}

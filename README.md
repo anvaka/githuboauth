@@ -1,6 +1,6 @@
 # githuboauth
 
-github oauth directive
+github oauth directive. Work in progress
 
 # install
 

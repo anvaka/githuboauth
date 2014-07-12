@@ -15,5 +15,15 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/anvaka/githuboauth"
+  },
+  "browserify": {
+    "transform": [
+      "brfs"
+    ]
+  },
+  "dependencies": {
+    "an": "0.0.6",
+    "brfs": "^1.1.2",
+    "cookies-js": "^0.4.0"
   }
 }
