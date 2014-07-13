@@ -3,10 +3,11 @@
     "browserify": "^4.2.0"
   },
   "scripts": {
-    "start": "browserify index.js > bundle.js"
+    "start": "node_modules/.bin/beefy ./index.js:bundle.js 31337"
   },
   "dependencies": {
     "an": "0.0.6",
-    "angular": "^1.2.19"
+    "angular": "^1.2.19",
+    "beefy": "^2.0.2"
   }
 }
