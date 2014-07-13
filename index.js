@@ -20,6 +20,7 @@ function githuboauth($http) {
     var weGotCodeFromGithub = window.location.href.match(/code=([^&#]*)/);
     var cookieName = attr.cookiename || 'accessToken';
 
+    $scope.on('ratechanged', updateRateLimit);
     $scope.isAuthenticated = Cookies.get(cookieName);
     $scope.clientId = attr.clientid;
     $scope.rate = rateLimitUnknown;
@@ -55,7 +56,12 @@ function githuboauth($http) {
         });
     }
 
-    function updateRateLimit() {
+    function updateRateLimit(rateLimit) {
+      if (rateLimit) {
+        $scope.rate = rateLimit;
+        return;
+      }
+
       $http.get('https://api.github.com/rate_limit?access_token=' + Cookies.get(cookieName))
         .success(function(response, code) {
           if (code !== 200) return;
