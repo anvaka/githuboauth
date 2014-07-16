@@ -61,8 +61,12 @@ function githuboauth($http) {
         $scope.rate = rateLimit;
         return;
       }
-
-      $http.get('https://api.github.com/rate_limit?access_token=' + Cookies.get(cookieName))
+      var suffix = '';
+      var accessToken = Cookies.get(cookieName);
+      if (accessToken) {
+         suffix = '?access_token=' + accessToken;
+      }
+      $http.get('https://api.github.com/rate_limit' + suffix)
         .success(function(response, code) {
           if (code !== 200) return;
           $scope.rate = response.rate;
