@@ -20,7 +20,7 @@ function githuboauth($http) {
     var weGotCodeFromGithub = window.location.href.match(/code=([^&#]*)/);
     var cookieName = attr.cookiename || 'accessToken';
 
-    $scope.on('ratechanged', updateRateLimit);
+    $scope.$on('ratechanged', updateRateLimit);
     $scope.isAuthenticated = Cookies.get(cookieName);
     $scope.clientId = attr.clientid;
     $scope.rate = rateLimitUnknown;
