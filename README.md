@@ -8,9 +8,12 @@ In your html code:
 
 ``` html
   <githuboauth clientId='b5926508f327fb8bd01b'
-               oauthProxy='//ghoauth.herokuapp.com/authenticate/'>
+               oauthProxy='//ghoauth.herokuapp.com/authenticate/[code]'>
   </githuboauth>
 ```
+
+See [demo](https://github.com/anvaka/githuboauth/tree/master/demo/basic) for 
+end to end example.
 
 Unfortunatly GitHub does not provide a way [to authenticate securily](https://developer.github.com/v3/oauth/#web-application-flow)
 via client side only. This means the directive requires to have oauth proxy to
