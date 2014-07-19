@@ -55,7 +55,7 @@ function githuboauth($http) {
         return group === 'code' ? code : match;
       });
 
-      $http.get(oauthProxy + suffix)
+      $http.get(oauthProxy)
         .success(function(response, code) {
           if (code !== 200) return;
           if (response && response.token) {
