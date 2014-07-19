@@ -51,7 +51,7 @@ function githuboauth($http) {
     function tradeCodeForToken(oauthProxy, code) {
       if (!oauthProxy) throw new Error('javascript based oauth is not supported by github. Please setup oauth proxy. See documentation: https://github.com/anvaka/githuboauth');
 
-      oauthProxy.replace(/\[(.+?)\]/g, function(match, group) {
+      oauthProxy = oauthProxy.replace(/\[(.+?)\]/g, function(match, group) {
         return group === 'code' ? code : match;
       });
 
