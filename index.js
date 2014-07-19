@@ -35,11 +35,17 @@ function githuboauth($http) {
 
 
     function updateUserInfo() {
-      $http.get('https://api.github.com/user?access_token=' + Cookies.get(cookieName))
+      var accessToken = Cookies.get(cookieName);
+      $http.get('https://api.github.com/user?access_token=' + accessToken)
         .success(function(user, code) {
           if (code !== 200) return;
           $scope.user = user;
+          notifyWithToken($scope.$root, accessToken);
         });
+    }
+
+    function notifyWithToken(scope, token) {
+      scope.$broadcast('githuboauth', token);
     }
 
     function tradeCodeForToken(oauthProxy, code) {
