@@ -1,6 +1,6 @@
 # githuboauth
 
-github oauth directive.
+Github oauth directive. Allows users of your website to authorize with GitHub.
 
 # Why?
 
