@@ -1,6 +1,12 @@
 # githuboauth
 
-github oauth directive. Work in progress
+github oauth directive.
+
+# Why?
+
+I started doing this to enable github on [graph drawing libraries](https://github.com/anvaka/graph-drawing-libraries) repository. Turns out complexity of this approach was high, so I switched from server-less solution to client-server architecture, where [Heroku app](https://github.com/anvaka/graph-drawing-stats) pulls all information from github and returns cached responses for [the frontend](http://anvaka.github.io/graph-drawing-libraries/#/all). This approach significantly simplified overall code.
+
+So, just keep in mind, there are better alternatives to github authorization problem.
 
 # usage
 
